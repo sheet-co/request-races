@@ -21,5 +21,6 @@ class HelloControllerTest {
   void givenHelloEndpoint_whenGetRequest_thenReturnsHello() {
     String response = this.restTemplate.getForObject("http://localhost:" + port + "/api/hello", String.class);
     assertThat(response).isEqualTo("Hello"); // Проверяем, что ответ равен "Hello"
+
   }
 }
