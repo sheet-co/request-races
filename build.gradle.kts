@@ -1,7 +1,9 @@
 plugins {
 	java
+	jacoco
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
+	id ("org.sonarqube") version "6.1.0.5360"
 }
 
 group = "dev.sheet-co"
@@ -22,6 +24,7 @@ configurations {
 repositories {
 	mavenCentral()
 }
+
 dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-security")
@@ -37,5 +40,19 @@ dependencies {
 
 tasks.withType<Test> {
 	useJUnitPlatform()
+
 }
+
+tasks.jacocoTestReport {
+	reports { xml.required.set(true) }
+}
+
+sonar {
+	properties {
+		property("sonar.projectKey", "sheet-co_request-races")
+		property("sonar.organization", "sheet-co")
+		property("sonar.host.url", "https://sonarcloud.io")
+	}
+}
+
 
