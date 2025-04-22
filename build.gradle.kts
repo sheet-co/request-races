@@ -4,6 +4,7 @@ plugins {
 	id("org.springframework.boot") version "3.4.4"
 	id("io.spring.dependency-management") version "1.1.7"
 	id ("org.sonarqube") version "6.1.0.5360"
+	id ("org.liquibase.gradle") version "2.2.0"
 }
 
 group = "dev.sheet-co"
@@ -31,10 +32,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
+	implementation("org.springframework.boot:spring-boot-starter-logging")
+	implementation("org.postgresql:postgresql")
+	implementation("org.liquibase:liquibase-core")
+
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+	runtimeOnly("com.h2database:h2")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
@@ -42,6 +48,10 @@ dependencies {
 	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
+
+	liquibaseRuntime("org.liquibase:liquibase-core")
+	liquibaseRuntime("org.postgresql:postgresql")
+
 }
 
 tasks.withType<Test> {
@@ -59,6 +69,19 @@ sonar {
 		property("sonar.organization", "sheet-co")
 		property("sonar.host.url", "https://sonarcloud.io")
 	}
+}
+
+liquibase {
+	activities {
+		register("main") {
+			var changeLogFile = "src/main/resources/db/changelog/db.changelog-master.yaml"
+			var url = "jdbc:postgresql://localhost:5432/race_base"
+			var username = "racer"
+			var password = "1234"
+			var driver = "org.postgresql.Driver"
+		}
+	}
+	runList = "main"
 }
 
 
