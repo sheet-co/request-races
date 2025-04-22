@@ -1,34 +1,40 @@
 package dev.sheet_co.request_races.service;
 
-import dev.sheet_co.request_races.model.entity.RaceRequest;
-import dev.sheet_co.request_races.repository.RaceRequestRepository;
+import dev.sheet_co.request_races.model.entity.Race;
+import dev.sheet_co.request_races.repository.RaceRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Slf4j
 @Service
 public class RaceRequestService {
 
-  private final RaceRequestRepository raceRequestRepository;
+  private final RaceRepository raceRepository;
 
   @Autowired
-  public RaceRequestService(RaceRequestRepository raceRequestRepository) {
-    this.raceRequestRepository = raceRequestRepository;
+  public RaceRequestService(RaceRepository raceRepository) {
+    this.raceRepository = raceRepository;
   }
 
-  public void createRaceRequest(RaceRequest raceRequest) {
-    String raceInDataBase = String.valueOf(raceRequestRepository.findRaceRequestByName(raceRequest.getName()));
-    if (!raceInDataBase.equals(raceRequest.getName())) {
-      raceRequestRepository.save(raceRequest);
-      log.info("{} created", raceRequest.getName());
+  public Race createRaceRequest(Race race) {
+    String raceInDataBase = String.valueOf(raceRepository.findRaceRequestByName(race.getName()));
+    if (!raceInDataBase.equals(race.getName())) {
+      log.info("{} created", race.getName());
+      return raceRepository.save(race);
+
     }
-    throw new IllegalArgumentException("Race with the name '" + raceRequest.getName() + "' already exists.");
+    throw new IllegalArgumentException("Race with the name '" + race.getName() + "' already exists.");
   }
 
-  public List<RaceRequest> getAllRaceRequests() {
-    return raceRequestRepository.findAll();
+  public List<Race> getAllRaceRequests() {
+    return raceRepository.findAll();
+  }
+
+  public Race getRaceFromDb(String name) {
+    return raceRepository.findRaceRequestByName(name);
   }
 
 }

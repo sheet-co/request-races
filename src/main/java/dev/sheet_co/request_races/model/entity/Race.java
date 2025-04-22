@@ -17,7 +17,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @ToString
 @Table(name = "races")
-public class RaceRequest {
+public class Race {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @Column(name = "id", unique = true, nullable = false)

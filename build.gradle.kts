@@ -41,7 +41,7 @@ dependencies {
 
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	runtimeOnly("com.h2database:h2")
-
+	runtimeOnly(("org.postgresql:postgresql"))
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("org.mockito:mockito-core")
@@ -49,8 +49,8 @@ dependencies {
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
 
-	liquibaseRuntime("org.liquibase:liquibase-core")
-	liquibaseRuntime("org.postgresql:postgresql")
+//	liquibaseRuntime("org.liquibase:liquibase-core")
+
 
 }
 
@@ -74,7 +74,7 @@ sonar {
 liquibase {
 	activities {
 		register("main") {
-			var changeLogFile = "src/main/resources/db/changelog/db.changelog-master.yaml"
+			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
 			var url = "jdbc:postgresql://localhost:5432/race_base"
 			var username = "racer"
 			var password = "1234"
