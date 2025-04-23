@@ -10,12 +10,12 @@ import java.util.List;
 
 @Slf4j
 @Service
-public class RaceRequestService {
+public class RaceService {
 
   private final RaceRepository raceRepository;
 
   @Autowired
-  public RaceRequestService(RaceRepository raceRepository) {
+  public RaceService(RaceRepository raceRepository) {
     this.raceRepository = raceRepository;
   }
 

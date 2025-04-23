@@ -33,7 +33,6 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.springframework.boot:spring-boot-starter-logging")
-	implementation("org.postgresql:postgresql")
 	implementation("org.liquibase:liquibase-core")
 
 	compileOnly("org.projectlombok:lombok")
@@ -71,17 +70,30 @@ sonar {
 	}
 }
 
-liquibase {
-	activities {
-		register("main") {
-			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
-			var url = "jdbc:postgresql://localhost:5432/race_base"
-			var username = "racer"
-			var password = "1234"
-			var driver = "org.postgresql.Driver"
-		}
-	}
-	runList = "main"
-}
+//liquibase {
+//	activities {
+//		register("main") {
+//			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
+//			var url = "jdbc:postgresql://localhost:5432/race_base"
+//			var username = "racer"
+//			var password = "1234"
+//			var driver = "org.postgresql.Driver"
+//		}
+//	}
+//	runList = "main"
+//}
+
+//liquibase {
+//	activities {
+//		register("main") {
+//			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
+//			var url = "jdbc:h2:mem:project"
+//			var username = "sa"
+//			var password = ""
+//			var driver = "org.h2.Driver"
+//		}
+//	}
+//	runList = "main"
+//}
 
 
