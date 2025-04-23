@@ -1,5 +1,6 @@
 package dev.sheet_co.request_races.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -30,11 +31,11 @@ public class Race {
   private String color;
 
   @CreationTimestamp
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
   @Column(nullable = false, updatable = false)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
   private LocalDateTime createdAt;
 
   @UpdateTimestamp
-  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
   private LocalDateTime updatedAt;
 }

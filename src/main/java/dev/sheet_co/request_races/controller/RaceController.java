@@ -26,13 +26,15 @@ public class RaceController {
     @GetMapping("/{name}")
     public ResponseEntity<RaceRequestDto> getRace(@PathVariable String name) {
         var race = raceService.getRaceFromDb(name);
+        if (race == null) {
+            return ResponseEntity.notFound().build();
+        }
         RaceRequestDto raceRequestDto = new RaceRequestDto();
-        BeanUtils.copyProperties(race, raceRequestDto);
+        raceRequestDto.setName(race.getName());
         return ResponseEntity.ok(raceRequestDto);
     }
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public RaceRequestDto create(@RequestBody Race race) {
         raceService.createRaceRequest(race);
@@ -41,8 +43,8 @@ public class RaceController {
         return raceRequestDto;
     }
 
-    @GetMapping("/get-all")
-        public List<Race> getAll(){
+    @GetMapping()
+    public List<Race> getAll() {
         return raceService.getAllRaceRequests();
     }
 
