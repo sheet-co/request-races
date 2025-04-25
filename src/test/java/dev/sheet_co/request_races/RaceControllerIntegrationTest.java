@@ -1,5 +1,6 @@
 package dev.sheet_co.request_races;
 
+import dev.sheet_co.request_races.model.dto.RaceRequestDto;
 import dev.sheet_co.request_races.model.entity.Race;
 import dev.sheet_co.request_races.repository.RaceRepository;
 import jakarta.transaction.Transactional;
@@ -58,14 +59,14 @@ class RaceControllerIntegrationTest {
   @Test
   void getAllRaceTest() throws Exception {
     Race race = new Race();
-    raceRepository.save(race);
+    var raceInDb = raceRepository.save(race);
     var request = get("/api/race");
     var result = mockMvc.perform(request)
                         .andExpect(status().isOk())
                         .andReturn();
     var body = result.getResponse().getContentAsString();
     assertNotNull(body);
-//    assertEquals(actualName, expectedName);
+    assertEquals(raceInDb.getName(), "Speedy");
   }
 
 }
