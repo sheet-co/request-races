@@ -43,13 +43,12 @@ dependencies {
 	runtimeOnly(("org.postgresql:postgresql"))
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("org.junit.jupiter:junit-jupiter")
 	testImplementation("org.mockito:mockito-core")
-	testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+	testRuntimeOnly("org.junit.jupiter:junit-jupiter")
 	testCompileOnly("org.projectlombok:lombok")
 	testAnnotationProcessor("org.projectlombok:lombok")
-
-//	liquibaseRuntime("org.liquibase:liquibase-core")
-
 
 }
 
