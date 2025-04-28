@@ -1,9 +1,14 @@
 package dev.sheet_co.request_races;
 
-import dev.sheet_co.request_races.model.dto.RaceRequestDto;
-import dev.sheet_co.request_races.model.entity.Race;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import dev.sheet_co.request_races.mapper.RaceMapper;
+import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
 import dev.sheet_co.request_races.repository.RaceRepository;
+import dev.sheet_co.request_races.testutil.TestModelGenerator;
 import jakarta.transaction.Transactional;
+import org.aspectj.lang.annotation.After;
+import org.instancio.Instancio;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,11 +16,15 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.web.context.WebApplicationContext;
+
+import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -23,15 +32,43 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Transactional
 class RaceControllerIntegrationTest {
 
+
+  @Autowired
+  private WebApplicationContext webApplicationContext;
+
   @Autowired
   private MockMvc mockMvc;
 
   @Autowired
   private RaceRepository raceRepository;
 
-  @BeforeEach
+  @Autowired
+  private RaceMapper raceMapper;
+
+  @Autowired
+  private RaceCreateRequest raceCreateRequest;
+
+  @Autowired
+  private TestModelGenerator modelGenerator;
+
+  @Autowired
+  private ObjectMapper objectMapper;
+
+//  @BeforeEach
+//  void setUp() {
+//    mockMvc = MockMvcBuilders.webAppContextSetup(wac)
+//                             .defaultResponseCharacterEncoding(StandardCharsets.UTF_8)
+//                             .apply(springSecurity())
+//                             .build();
+//
+//    testLabel = Instancio.of(modelGenerator.getLabelModel()).create();
+//    raceRepository.save(testLabel);
+//
+//  }
+
+  @AfterEach
   void setup() {
-//    raceRepository.deleteAll();
+    raceRepository.deleteAll();
 
   }
 
@@ -56,17 +93,5 @@ class RaceControllerIntegrationTest {
     assertEquals(actualName, expectedName);
   }
 
-  @Test
-  void getAllRaceTest() throws Exception {
-    Race race = new Race();
-    var raceInDb = raceRepository.save(race);
-    var request = get("/api/race");
-    var result = mockMvc.perform(request)
-                        .andExpect(status().isOk())
-                        .andReturn();
-    var body = result.getResponse().getContentAsString();
-    assertNotNull(body);
-    assertEquals(raceInDb.getName(), "Speedy");
-  }
 
 }

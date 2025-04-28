@@ -1,6 +1,6 @@
 package dev.sheet_co.request_races.controller;
 
-import dev.sheet_co.request_races.model.dto.RaceRequestDto;
+import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
 import dev.sheet_co.request_races.model.entity.Race;
 import dev.sheet_co.request_races.service.RaceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,24 +21,24 @@ public class RaceController {
         this.raceService = raceService;
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<RaceRequestDto> getRace(@PathVariable String name) {
-        var race = raceService.getRaceFromDb(name);
-        if (race == null) {
-            return ResponseEntity.notFound().build();
-        }
-        RaceRequestDto raceRequestDto = new RaceRequestDto();
-        raceRequestDto.setName(race.getName());
-        return ResponseEntity.ok(raceRequestDto);
-    }
+//    @GetMapping("/{name}")
+//    public ResponseEntity<RaceCreateRequest> getRace(@PathVariable String name) {
+//        var race = raceService.getRaceFromDb(name);
+//        if (race == null) {
+//            return ResponseEntity.notFound().build();
+//        }
+//        RaceCreateRequest raceCreateRequest = new RaceCreateRequest();
+//        raceCreateRequest.setName(race.getName());
+//        return ResponseEntity.ok(raceCreateRequest);
+//    }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public RaceRequestDto create(@RequestBody Race race) {
+    public RaceCreateRequest create(@RequestBody Race race) {
         raceService.createRaceRequest(race);
-        RaceRequestDto raceRequestDto = new RaceRequestDto();
-        raceRequestDto.setName(race.getName());
-        return raceRequestDto;
+        RaceCreateRequest raceCreateRequest = new RaceCreateRequest();
+        raceCreateRequest.setName(race.getName());
+        return raceCreateRequest;
     }
 
     @GetMapping()
