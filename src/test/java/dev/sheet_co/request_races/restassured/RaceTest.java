@@ -20,6 +20,7 @@ class RaceTest {
   static void setup() {
     RestAssured.baseURI = "http://localhost";
     RestAssured.port = 8080;
+
   }
 
   @Test
@@ -72,4 +73,5 @@ class RaceTest {
     response.log().all();
 
   }
+
 }
