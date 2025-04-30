@@ -2,7 +2,6 @@ package dev.sheet_co.request_races.controller;
 
 import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
 import dev.sheet_co.request_races.model.dto.RaceResponse;
-import dev.sheet_co.request_races.model.entity.Race;
 import dev.sheet_co.request_races.service.RaceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

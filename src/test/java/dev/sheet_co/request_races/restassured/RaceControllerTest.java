@@ -32,7 +32,7 @@ class RaceControllerTest {
           "color": "Red"
         }
         """;
-    ValidatableResponse val = given()
+    ValidatableResponse response = given()
         .log().all()
         .when()
         .contentType(ContentType.JSON)
@@ -45,7 +45,7 @@ class RaceControllerTest {
         .assertThat().body("color", equalTo("Red"))
         .statusCode(201);
 
-    val.log().all();
+    response.log().all();
   }
 
   @Test
@@ -85,9 +85,8 @@ class RaceControllerTest {
         .assertThat().body("[0].color", equalTo("Red"))
         .assertThat().body("[1].name", isA(String.class))
         .assertThat().body("[1].name", equalTo("Jack"))
-        .assertThat().body("[1].name", isA(String.class))
+        .assertThat().body("[1].color", isA(String.class))
         .assertThat().body("[1].color", equalTo("Rose"))
-
         .statusCode(200);
 
     response.log().all();
