@@ -2,6 +2,7 @@ package dev.sheet_co.request_races.controller;
 
 import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
 import dev.sheet_co.request_races.model.dto.RaceResponse;
+import dev.sheet_co.request_races.model.dto.RaceUpdateRequest;
 import dev.sheet_co.request_races.service.RaceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class RaceController {
     this.raceService = raceService;
   }
 
-  @GetMapping()
+  @GetMapping
   public ResponseEntity<List<RaceResponse>> getAllRaces() {
     var races = raceService.getAllRaces();
     return ResponseEntity.ok()
@@ -30,10 +31,28 @@ public class RaceController {
                          .body(races);
   }
 
-  @PostMapping()
+  @GetMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public RaceResponse getRaceById(@PathVariable Long id) {
+    return raceService.getRaceById(id);
+  }
+
+  @PostMapping
   @ResponseStatus(HttpStatus.CREATED)
   public RaceResponse createRace(@Valid @RequestBody RaceCreateRequest request) {
     return raceService.createRace(request);
+  }
+
+  @PutMapping("/{id}")
+  @ResponseStatus(HttpStatus.OK)
+  public RaceResponse updateRace(@PathVariable Long id, @Valid @RequestBody RaceUpdateRequest request) {
+    return raceService.updateRace(id,request);
+  }
+
+  @DeleteMapping("/{id}")
+  @ResponseStatus(HttpStatus.NO_CONTENT)
+  public void deleteRace(@PathVariable Long id) {
+    raceService.deleteRace(id);
   }
 
 }

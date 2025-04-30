@@ -34,6 +34,12 @@ public class RaceService {
     return raceMapper.toResponse(race);
   }
 
+  public RaceResponse getRaceById(Long id) {
+    var race = raceRepository.findById(id)
+        .orElseThrow(()-> new RaceNotFoundByIdException(id));
+    return raceMapper.toResponse(race);
+  }
+
   public List<RaceResponse> getAllRaces() {
     return raceRepository.findAll().stream()
                          .map(raceMapper::toResponse)
