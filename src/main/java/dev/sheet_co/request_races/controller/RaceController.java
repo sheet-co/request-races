@@ -31,10 +31,16 @@ public class RaceController {
                          .body(races);
   }
 
-  @GetMapping("/{id}")
+  @GetMapping("/id/{id}")
   @ResponseStatus(HttpStatus.OK)
   public RaceResponse getRaceById(@PathVariable Long id) {
     return raceService.getRaceById(id);
+  }
+
+  @GetMapping("/name/{name}")
+  @ResponseStatus(HttpStatus.OK)
+  public RaceResponse getRaceByName(@PathVariable String name) {
+    return raceService.getRaceByName(name);
   }
 
   @PostMapping
@@ -46,7 +52,7 @@ public class RaceController {
   @PutMapping("/{id}")
   @ResponseStatus(HttpStatus.OK)
   public RaceResponse updateRace(@PathVariable Long id, @Valid @RequestBody RaceUpdateRequest request) {
-    return raceService.updateRace(id,request);
+    return raceService.updateRace(id, request);
   }
 
   @DeleteMapping("/{id}")

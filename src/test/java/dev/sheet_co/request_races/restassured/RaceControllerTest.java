@@ -21,18 +21,17 @@ class RaceControllerTest {
   static void setup() {
     RestAssured.baseURI = "http://localhost";
     RestAssured.port = 8080;
-
   }
 
   @Test
-  @DisplayName("#1")
+  @DisplayName("#1 Posting race")
   void createRaceTest() {
-    String raceJson = """
-        { "name": "Tom",
+    var raceJson = """
+        {  "name": "Tom",
           "color": "Red"
         }
         """;
-    ValidatableResponse response = given()
+    given()
         .log().all()
         .when()
         .contentType(ContentType.JSON)
@@ -44,15 +43,13 @@ class RaceControllerTest {
         .assertThat().body("name", equalTo("Tom"))
         .assertThat().body("color", equalTo("Red"))
         .statusCode(201);
-
-    response.log().all();
   }
 
   @Test
-  @DisplayName("#2")
+  @DisplayName("#2 Posting race")
   void createRaceTest2() {
     String raceJson = """
-        { "name": "Jack",
+        {  "name": "Jack",
           "color": "Rose"
         }
         """;
@@ -71,7 +68,7 @@ class RaceControllerTest {
   }
 
   @Test
-  @DisplayName("#3")
+  @DisplayName("#3 Getting all races")
   void getRacesTest() {
 
     ValidatableResponse response = given()
@@ -88,6 +85,26 @@ class RaceControllerTest {
         .assertThat().body("[1].color", isA(String.class))
         .assertThat().body("[1].color", equalTo("Rose"))
         .statusCode(200);
+
+    response.log().all();
+  }
+
+  @Test
+  @DisplayName("#4. Getting race by name")
+  void getRaceById() {
+
+    String actualName = "Tom";
+    String expectedName = "Tom";
+
+    ValidatableResponse response = given()
+        .contentType(ContentType.JSON)
+        .pathParam("name", expectedName)
+        .when()
+        .get("/api/race/name/{name}")
+        .then()
+        .statusCode(200)
+        .assertThat().body("name", isA(String.class))
+        .assertThat().body("name", equalTo(actualName));
 
     response.log().all();
 
