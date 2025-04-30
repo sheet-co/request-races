@@ -7,7 +7,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 @Setter
 @Getter
-public class RaceUpdate {
+public class RaceUpdateRequest {
   @NotNull
   private JsonNullable<String> name;
 }

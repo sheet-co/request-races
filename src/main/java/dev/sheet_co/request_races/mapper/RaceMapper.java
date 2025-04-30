@@ -2,15 +2,15 @@ package dev.sheet_co.request_races.mapper;
 
 import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
 import dev.sheet_co.request_races.model.dto.RaceResponse;
+import dev.sheet_co.request_races.model.dto.RaceUpdateRequest;
 import dev.sheet_co.request_races.model.entity.Race;
-import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
-import org.mapstruct.MappingTarget;
-import org.mapstruct.NullValuePropertyMappingStrategy;
+import org.mapstruct.*;
 
 @Mapper(
     componentModel = MappingConstants.ComponentModel.SPRING,
-    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE
+    nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+    unmappedTargetPolicy = ReportingPolicy.IGNORE,
+    uses = {JsonNullableMapper.class}
 )
 public abstract class RaceMapper {
 
@@ -18,5 +18,5 @@ public abstract class RaceMapper {
 
   public abstract Race toEntity(RaceCreateRequest dto);
 
-  public abstract void updateEntity(@MappingTarget Race entity, RaceCreateRequest dto);
+  public abstract void updateEntity(@MappingTarget Race entity, RaceUpdateRequest dto);
 }

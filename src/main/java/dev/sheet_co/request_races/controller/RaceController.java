@@ -1,8 +1,10 @@
 package dev.sheet_co.request_races.controller;
 
 import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
+import dev.sheet_co.request_races.model.dto.RaceResponse;
 import dev.sheet_co.request_races.model.entity.Race;
 import dev.sheet_co.request_races.service.RaceService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,38 +16,26 @@ import java.util.List;
 @RequestMapping("/api/race")
 public class RaceController {
 
-    private final RaceService raceService;
+  private final RaceService raceService;
 
-    @Autowired
-    public RaceController(RaceService raceService) {
-        this.raceService = raceService;
-    }
+  @Autowired
+  public RaceController(RaceService raceService) {
+    this.raceService = raceService;
+  }
 
-//    @GetMapping("/{name}")
-//    public ResponseEntity<RaceCreateRequest> getRace(@PathVariable String name) {
-//        var race = raceService.getRaceFromDb(name);
-//        if (race == null) {
-//            return ResponseEntity.notFound().build();
-//        }
-//        RaceCreateRequest raceCreateRequest = new RaceCreateRequest();
-//        raceCreateRequest.setName(race.getName());
-//        return ResponseEntity.ok(raceCreateRequest);
-//    }
+  @GetMapping()
+  public ResponseEntity<List<RaceResponse>> getAllRaces() {
+    var races = raceService.getAllRaces();
+    return ResponseEntity.ok()
+                         .header("X-Total-Count", String.valueOf(races.size()))
+                         .body(races);
+  }
 
-    @PostMapping()
-    @ResponseStatus(HttpStatus.CREATED)
-    public RaceCreateRequest create(@RequestBody Race race) {
-        raceService.createRaceRequest(race);
-        RaceCreateRequest raceCreateRequest = new RaceCreateRequest();
-        raceCreateRequest.setName(race.getName());
-        return raceCreateRequest;
-    }
-
-    @GetMapping()
-    public List<Race> getAll() {
-        return raceService.getAllRaceRequests();
-    }
-
+  @PostMapping()
+  @ResponseStatus(HttpStatus.CREATED)
+  public RaceResponse createRace(@Valid @RequestBody RaceCreateRequest request) {
+    return raceService.createRace(request);
+  }
 
 }
 

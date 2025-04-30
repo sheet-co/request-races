@@ -9,10 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.DisplayName.class)
-class RaceTest {
+class RaceControllerTest {
   @Autowired
   RaceRepository raceRepository;
 
@@ -31,14 +32,20 @@ class RaceTest {
           "color": "Red"
         }
         """;
-    given()
+    ValidatableResponse val = given()
         .log().all()
         .when()
         .contentType(ContentType.JSON)
         .body(raceJson)
         .post("/api/race")
         .then()
+        .assertThat().body("name", isA(String.class))
+        .assertThat().body("color", isA(String.class))
+        .assertThat().body("name", equalTo("Tom"))
+        .assertThat().body("color", equalTo("Red"))
         .statusCode(201);
+
+    val.log().all();
   }
 
   @Test
@@ -56,6 +63,10 @@ class RaceTest {
         .body(raceJson)
         .post("/api/race")
         .then()
+        .assertThat().body("name", isA(String.class))
+        .assertThat().body("color", isA(String.class))
+        .assertThat().body("name", equalTo("Jack"))
+        .assertThat().body("color", equalTo("Rose"))
         .statusCode(201);
   }
 
@@ -68,6 +79,15 @@ class RaceTest {
         .when()
         .get("/api/race")
         .then()
+        .assertThat().body("[0].name", isA(String.class))
+        .assertThat().body("[0].name", equalTo("Tom"))
+        .assertThat().body("[0].color", isA(String.class))
+        .assertThat().body("[0].color", equalTo("Red"))
+        .assertThat().body("[1].name", isA(String.class))
+        .assertThat().body("[1].name", equalTo("Jack"))
+        .assertThat().body("[1].name", isA(String.class))
+        .assertThat().body("[1].color", equalTo("Rose"))
+
         .statusCode(200);
 
     response.log().all();
