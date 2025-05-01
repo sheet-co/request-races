@@ -38,6 +38,7 @@ class RaceControllerTest {
         .body(raceJson)
         .post("/api/race")
         .then()
+        .assertThat().body("id", equalTo(1))
         .assertThat().body("name", isA(String.class))
         .assertThat().body("color", isA(String.class))
         .assertThat().body("name", equalTo("Tom"))
@@ -60,6 +61,7 @@ class RaceControllerTest {
         .body(raceJson)
         .post("/api/race")
         .then()
+        .assertThat().body("id", equalTo(2))
         .assertThat().body("name", isA(String.class))
         .assertThat().body("color", isA(String.class))
         .assertThat().body("name", equalTo("Jack"))
@@ -91,7 +93,7 @@ class RaceControllerTest {
 
   @Test
   @DisplayName("#4. Getting race by name")
-  void getRaceById() {
+  void getRaceByIdTest() {
 
     String actualName = "Tom";
     String expectedName = "Tom";
@@ -107,7 +109,47 @@ class RaceControllerTest {
         .assertThat().body("name", equalTo(actualName));
 
     response.log().all();
+  }
 
+//  @Test
+//  @DisplayName("#5. Put race by id")
+//  void putRaceByIdTest() {
+//    String raceJson = """
+//        {  "name": "Update name",
+//          "color": "Update color"
+//        }
+//        """;
+//    var raceId = 1;
+//
+//    ValidatableResponse response = given()
+//        .contentType(ContentType.JSON)
+//
+//        .log().all()
+//        .queryParam("id", raceId)
+//        .log().all()
+//        .body(raceJson)
+//        .when()
+//        .put("/put/{id}")
+//        .then()
+//        .extract().path("sys");
+////        .statusCode(200);
+//
+//    response.log().all();
+//
+//  }
+
+  @Test
+  @DisplayName("#6. Delete race by id")
+  void deleteRaceByIdTest() {
+    var actualId = 1;
+    ValidatableResponse response = given()
+        .contentType(ContentType.JSON)
+        .pathParam("id", actualId)
+        .delete("/api/race/delete/{id}")
+        .then()
+        .statusCode(204);
+
+    response.log().all();
   }
 
 }

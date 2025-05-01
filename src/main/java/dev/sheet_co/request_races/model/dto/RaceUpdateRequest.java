@@ -1,13 +1,22 @@
 package dev.sheet_co.request_races.model.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 @Setter
 @Getter
 public class RaceUpdateRequest {
+  @Id
+  private Long id;
+
   @NotNull
-  private JsonNullable<String> name;
+  @JsonProperty("name")
+  private String name;
+
+  @NotNull
+  @JsonProperty("color")
+  private String color;
 }

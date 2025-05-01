@@ -49,13 +49,13 @@ public class RaceController {
     return raceService.createRace(request);
   }
 
-  @PutMapping("/{id}")
+  @PutMapping("/put/{id}")
   @ResponseStatus(HttpStatus.OK)
   public RaceResponse updateRace(@PathVariable Long id, @Valid @RequestBody RaceUpdateRequest request) {
     return raceService.updateRace(id, request);
   }
 
-  @DeleteMapping("/{id}")
+  @DeleteMapping("/delete/{id}")
   @ResponseStatus(HttpStatus.NO_CONTENT)
   public void deleteRace(@PathVariable Long id) {
     raceService.deleteRace(id);
