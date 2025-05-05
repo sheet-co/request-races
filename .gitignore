@@ -51,3 +51,5 @@ Thumbs.db
 /.idea/sonarlint/
 .vscode/sonarlint/
 .sonar/
+
+.vscode/
