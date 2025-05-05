@@ -2,7 +2,6 @@ package dev.sheet_co.request_races.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -17,9 +16,14 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable);
     http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-        .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
-//        .requestMatchers("/**").permitAll()
-        .anyRequest().authenticated());
+//        .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
+//        .requestMatchers(HttpMethod.POST, "/api").permitAll()
+//        .requestMatchers(HttpMethod.POST, "/api/create").permitAll()
+//        .requestMatchers(HttpMethod.GET, "/api/race/get").permitAll()
+//        .requestMatchers(HttpMethod.POST, "/api/race/create").permitAll());
+//        .anyRequest().authenticated());
+.anyRequest().permitAll());
     return http.build();
   }
+
 }
