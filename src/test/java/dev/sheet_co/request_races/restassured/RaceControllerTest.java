@@ -111,32 +111,58 @@ class RaceControllerTest {
     response.log().all();
   }
 
-//  @Test
-//  @DisplayName("#5. Put race by id")
-//  void putRaceByIdTest() {
-//    String raceJson = """
-//        {  "name": "Update name",
-//          "color": "Update color"
-//        }
-//        """;
-//    var raceId = 1;
-//
-//    ValidatableResponse response = given()
-//        .contentType(ContentType.JSON)
-//
-//        .log().all()
-//        .queryParam("id", raceId)
-//        .log().all()
-//        .body(raceJson)
-//        .when()
-//        .put("/put/{id}")
-//        .then()
-//        .extract().path("sys");
-////        .statusCode(200);
-//
-//    response.log().all();
-//
-//  }
+  @Test
+  @DisplayName("#5. Put race by id")
+  void putRaceByIdTest() {
+
+    String createRaceJson = """
+        { 
+          "name": "Initial name",
+          "color": "Initial color"
+        }
+        """;
+
+        var raceId = given() // POST
+            .contentType(ContentType.JSON)
+            .body(createRaceJson)
+            .when()
+            .post("api/race")
+            .then()
+            .statusCode(201)
+            .extract()
+            .path("id");
+
+    var updateRaceJson = """
+        { 
+          "name": "Update name",
+          "color": "Update color"
+        }
+        """;
+
+    given() // PUT
+        .contentType(ContentType.JSON)
+        .body(updateRaceJson)
+        .when()
+        .put("api/race/put/{id}", raceId)
+        .then()
+        .statusCode(200);
+
+    given() // GET
+        .contentType(ContentType.JSON)
+        .when()
+        .get("api/race/id/{id}", raceId)
+        .then()
+        .statusCode(200)
+        .body("name", equalTo("Update name"))
+        .body("color", equalTo("Update color"));
+
+    given() // DELETE
+        .contentType(ContentType.JSON)
+        .when()
+        .delete("api/race/delete/{id}", raceId)
+        .then()
+        .statusCode(anyOf(is(200), is(204)));
+  }
 
   @Test
   @DisplayName("#6. Delete race by id")
