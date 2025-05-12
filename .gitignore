@@ -9,12 +9,11 @@
 build/
 
 # Gradle
-.gradle/
-!gradle-wrapper.jar
-
-# Файлы зависимостей Gradle
-out/
-!gradle-wrapper.properties
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 # Папка с данными кэша и временные файлы
 .cache/
@@ -51,3 +50,5 @@ Thumbs.db
 /.idea/sonarlint/
 .vscode/sonarlint/
 .sonar/
+
+.vscode/

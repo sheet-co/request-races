@@ -17,22 +17,20 @@ jobs:
           java-version: '21'
           distribution: 'temurin'
       - uses: gradle/actions/setup-gradle@v4
-        with:
-          gradle-version: '9'
-      - run: chmod +x ./gradlew
-      - run: ./gradlew build jacocoTestReport
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
       - name: Cache Gradle packages
         uses: actions/cache@v4
         with:
           path: ~/.gradle/caches
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}
           restore-keys: ${{ runner.os }}-gradle
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - run: chmod +x ./gradlew
+      - run: ./gradlew build jacocoTestReport
       - name: Push to SonarQube
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

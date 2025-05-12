@@ -37,8 +37,6 @@ dependencies {
 	implementation("org.instancio:instancio-core:5.4.1")
     implementation("org.mapstruct:mapstruct:1.6.3")
 	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
-	implementation("net.datafaker:datafaker:2.4.3")
-	implementation("io.rest-assured:json-schema-validator:5.5.1")
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
