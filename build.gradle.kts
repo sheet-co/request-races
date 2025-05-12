@@ -36,7 +36,7 @@ dependencies {
 	implementation("org.liquibase:liquibase-core")
 	implementation("org.instancio:instancio-core:5.4.1")
     implementation("org.mapstruct:mapstruct:1.6.3")
-	implementation("org.openapitools:jackson-databind-nullable:0.2.4")
+	implementation("org.openapitools:jackson-databind-nullable:0.2.6")
 
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
@@ -77,30 +77,6 @@ sonar {
 	}
 }
 
-//liquibase {
-//	activities {
-//		register("main") {
-//			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
-//			var url = "jdbc:postgresql://localhost:5432/race_base"
-//			var username = "racer"
-//			var password = "1234"
-//			var driver = "org.postgresql.Driver"
-//		}
-//	}
-//	runList = "main"
-//}
 
-//liquibase {
-//	activities {
-//		register("main") {
-//			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
-//			var url = "jdbc:h2:mem:project"
-//			var username = "sa"
-//			var password = ""
-//			var driver = "org.h2.Driver"
-//		}
-//	}
-//	runList = "main"
-//}
 
 
