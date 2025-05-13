@@ -5,7 +5,6 @@ import dev.sheet_co.request_races.mapper.RaceMapper;
 import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
 import dev.sheet_co.request_races.model.dto.RaceResponse;
 import dev.sheet_co.request_races.model.dto.RaceUpdateRequest;
-import dev.sheet_co.request_races.model.entity.Race;
 import dev.sheet_co.request_races.repository.RaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

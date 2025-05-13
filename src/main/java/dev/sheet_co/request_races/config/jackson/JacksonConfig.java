@@ -1,4 +1,4 @@
-package dev.sheet_co.request_races.config;
+package dev.sheet_co.request_races.config.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
