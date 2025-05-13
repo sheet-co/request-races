@@ -11,6 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.*;
 
+/**
+ *  todo
+ */
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 class RaceControllerTest {
@@ -78,6 +81,7 @@ class RaceControllerTest {
         .when()
         .get("/api/race")
         .then()
+        .statusCode(200)
         .assertThat().body("[0].name", isA(String.class))
         .assertThat().body("[0].name", equalTo("Tom"))
         .assertThat().body("[0].color", isA(String.class))
@@ -85,24 +89,24 @@ class RaceControllerTest {
         .assertThat().body("[1].name", isA(String.class))
         .assertThat().body("[1].name", equalTo("Jack"))
         .assertThat().body("[1].color", isA(String.class))
-        .assertThat().body("[1].color", equalTo("Rose"))
-        .statusCode(200);
+        .assertThat().body("[1].color", equalTo("Rose"));
+
 
     response.log().all();
   }
 
   @Test
-  @DisplayName("#4. Getting race by name")
+  @DisplayName("#4. Getting race by id")
   void getRaceByIdTest() {
 
     String actualName = "Tom";
-    String expectedName = "Tom";
+    String expectedId = "1";
 
     ValidatableResponse response = given()
         .contentType(ContentType.JSON)
-        .pathParam("name", expectedName)
+        .pathParam("id", expectedId)
         .when()
-        .get("/api/race/name/{name}")
+        .get("/api/race/{id}")
         .then()
         .statusCode(200)
         .assertThat().body("name", isA(String.class))
@@ -143,14 +147,14 @@ class RaceControllerTest {
         .contentType(ContentType.JSON)
         .body(updateRaceJson)
         .when()
-        .put("api/race/put/{id}", raceId)
+        .put("api/race/{id}", raceId)
         .then()
         .statusCode(200);
 
     given() // GET
         .contentType(ContentType.JSON)
         .when()
-        .get("api/race/id/{id}", raceId)
+        .get("api/race/{id}", raceId)
         .then()
         .statusCode(200)
         .body("name", equalTo("Update name"))
@@ -159,7 +163,7 @@ class RaceControllerTest {
     given() // DELETE
         .contentType(ContentType.JSON)
         .when()
-        .delete("api/race/delete/{id}", raceId)
+        .delete("api/race/{id}", raceId)
         .then()
         .statusCode(anyOf(is(200), is(204)));
   }
@@ -171,7 +175,7 @@ class RaceControllerTest {
     ValidatableResponse response = given()
         .contentType(ContentType.JSON)
         .pathParam("id", actualId)
-        .delete("/api/race/delete/{id}")
+        .delete("/api/race/{id}")
         .then()
         .statusCode(204);
 
