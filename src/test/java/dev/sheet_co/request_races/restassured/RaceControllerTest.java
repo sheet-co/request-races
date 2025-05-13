@@ -1,11 +1,9 @@
 package dev.sheet_co.request_races.restassured;
 
-import dev.sheet_co.request_races.repository.RaceRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import static io.restassured.RestAssured.given;
@@ -17,8 +15,6 @@ import static org.hamcrest.Matchers.*;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestMethodOrder(MethodOrderer.DisplayName.class)
 class RaceControllerTest {
-  @Autowired
-  RaceRepository raceRepository;
 
   @BeforeAll
   static void setup() {
@@ -90,7 +86,6 @@ class RaceControllerTest {
         .assertThat().body("[1].name", equalTo("Jack"))
         .assertThat().body("[1].color", isA(String.class))
         .assertThat().body("[1].color", equalTo("Rose"));
-
 
     response.log().all();
   }
