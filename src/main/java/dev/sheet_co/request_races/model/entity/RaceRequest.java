@@ -18,7 +18,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @NoArgsConstructor
 @ToString(includeFieldNames = true, onlyExplicitlyIncluded = true)
 @Table(name = "races")
-public class Race {
+public class RaceRequest {
   @Id
   @GeneratedValue(strategy = IDENTITY)
   @ToString.Include

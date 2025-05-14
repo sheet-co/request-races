@@ -1,9 +1,9 @@
 package dev.sheet_co.request_races.mapper;
 
-import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
-import dev.sheet_co.request_races.model.dto.RaceResponse;
-import dev.sheet_co.request_races.model.dto.RaceUpdateRequest;
-import dev.sheet_co.request_races.model.entity.Race;
+import dev.sheet_co.request_races.model.dto.RaceCreateIn;
+import dev.sheet_co.request_races.model.dto.RaceOut;
+import dev.sheet_co.request_races.model.dto.RaceUpdateIn;
+import dev.sheet_co.request_races.model.entity.RaceRequest;
 import org.mapstruct.*;
 
 @Mapper(
@@ -14,9 +14,9 @@ import org.mapstruct.*;
 )
 public abstract class RaceMapper {
 
-  public abstract RaceResponse toResponse(Race entity);
+  public abstract RaceOut toResponse(RaceRequest entity);
 
-  public abstract Race toEntity(RaceCreateRequest dto);
+  public abstract RaceRequest toEntity(RaceCreateIn dto);
 
-  public abstract void updateEntity(@MappingTarget Race entity, RaceUpdateRequest dto);
+  public abstract void updateEntity(@MappingTarget RaceRequest entity, RaceUpdateIn dto);
 }

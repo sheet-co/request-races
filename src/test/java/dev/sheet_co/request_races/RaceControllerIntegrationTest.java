@@ -2,7 +2,7 @@
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
 //import dev.sheet_co.request_races.mapper.RaceMapper;
-//import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
+//import dev.sheet_co.request_races.model.dto.RaceCreateIn;
 //import dev.sheet_co.request_races.repository.RaceRepository;
 //import dev.sheet_co.request_races.testutil.TestModelGenerator;
 //import jakarta.transaction.Transactional;
@@ -39,7 +39,7 @@
 //  private RaceMapper raceMapper;
 //
 //  @Autowired
-//  private RaceCreateRequest raceCreateRequest;
+//  private RaceCreateIn raceCreateRequest;
 //
 //  @Autowired
 //  private TestModelGenerator modelGenerator;

@@ -5,19 +5,19 @@ import jakarta.persistence.Id;
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.openapitools.jackson.nullable.JsonNullable;
 
 @Setter
 @Getter
-public class RaceUpdateRequest {
+public class RaceCreateIn {
   @Id
   private Long id;
 
   @NotNull
   @JsonProperty("name")
-  private JsonNullable<String> name;
+  private String name;
 
   @NotNull
   @JsonProperty("color")
-  private JsonNullable<String> color;
+  private String color;
+
 }

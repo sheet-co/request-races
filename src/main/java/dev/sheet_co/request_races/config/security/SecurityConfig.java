@@ -17,10 +17,10 @@ public class SecurityConfig {
   public SecurityFilterChain filterChain(final HttpSecurity http) throws Exception {
     http.csrf(AbstractHttpConfigurer::disable);
     http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
-            .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
-            .requestMatchers(HttpMethod.POST, "/api").permitAll()
-            .requestMatchers("/api/race/**").permitAll()
-            .anyRequest().authenticated());
+        .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
+        .requestMatchers(HttpMethod.POST, "/api").permitAll()
+        .requestMatchers("/api/race-request/**").permitAll()
+        .anyRequest().authenticated());
     return http.build();
   }
 

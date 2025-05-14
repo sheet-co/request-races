@@ -2,9 +2,9 @@ package dev.sheet_co.request_races.service;
 
 import dev.sheet_co.request_races.exception.RaceNotFoundException;
 import dev.sheet_co.request_races.mapper.RaceMapper;
-import dev.sheet_co.request_races.model.dto.RaceCreateRequest;
-import dev.sheet_co.request_races.model.dto.RaceResponse;
-import dev.sheet_co.request_races.model.dto.RaceUpdateRequest;
+import dev.sheet_co.request_races.model.dto.RaceCreateIn;
+import dev.sheet_co.request_races.model.dto.RaceOut;
+import dev.sheet_co.request_races.model.dto.RaceUpdateIn;
 import dev.sheet_co.request_races.repository.RaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,32 +24,26 @@ public class RaceService {
     this.raceMapper = raceMapper;
   }
 
-  public RaceResponse getRaceByName(String name) {
-    var race = raceRepository.findRaceByName(name)
-                             .orElseThrow(() -> new RaceNotFoundException(name));
-    return raceMapper.toResponse(race);
-  }
-
-  public RaceResponse getRaceById(Long id) {
+  public RaceOut getRaceById(Long id) {
     var race = raceRepository.findById(id)
-        .orElseThrow(()-> new RaceNotFoundException(id.toString()));
+                             .orElseThrow(() -> new RaceNotFoundException(id.toString()));
     return raceMapper.toResponse(race);
   }
 
-  public List<RaceResponse> getAllRaces() {
+  public List<RaceOut> getAllRaces() {
     return raceRepository.findAll().stream()
                          .map(raceMapper::toResponse)
                          .toList();
   }
 
-  public RaceResponse createRace(RaceCreateRequest request) {
+  public RaceOut createRace(RaceCreateIn request) {
     var race = raceMapper.toEntity(request);
     var savedRace = raceRepository.save(race);
     return raceMapper.toResponse(savedRace);
 
   }
 
-  public RaceResponse updateRace(Long id, RaceUpdateRequest request) {
+  public RaceOut updateRace(Long id, RaceUpdateIn request) {
     var race = raceRepository.findById(id)
                              .orElseThrow(() -> new RaceNotFoundException(id.toString()));
     raceMapper.updateEntity(race, request);
