@@ -25,12 +25,12 @@ public class Race {
   @Column(name = "id", unique = true, nullable = false)
   private Long id;
 
-  @Column(name = "name")
+  @Column
   @ToString.Include
   @NotNull
   private String name;
 
-  @Column(name = "color")
+  @Column
   @ToString.Include
   @NotNull
   private String color;
