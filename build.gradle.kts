@@ -77,6 +77,17 @@ sonar {
 	}
 }
 
-
+liquibase {
+	activities {
+		register("main") {
+			var changeLog = "src/main/resources/db/changelog/db.changelog-master.yaml"
+			var url = "jdbc:postgresql://localhost:5432/race_base"
+			var username = "racer"
+			var password = "1234"
+			var driver = "org.postgresql.Driver"
+		}
+	}
+	runList = "main"
+}
 
 

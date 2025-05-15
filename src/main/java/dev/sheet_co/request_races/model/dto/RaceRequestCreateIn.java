@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class RaceOut {
+public class RaceRequestCreateIn {
   @Id
   private Long id;
 
@@ -19,4 +19,5 @@ public class RaceOut {
   @NotNull
   @JsonProperty("color")
   private String color;
+
 }

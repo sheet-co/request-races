@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface RaceRepository extends JpaRepository<RaceRequest, Long> {
+public interface RaceRequestRepository extends JpaRepository<RaceRequest, Long> {
   Optional<RaceRequest> findRaceByName(String raceName);
 }

@@ -9,7 +9,7 @@ import org.openapitools.jackson.nullable.JsonNullable;
 
 @Setter
 @Getter
-public class RaceUpdateIn {
+public class RaceRequestUpdateIn {
   @Id
   private Long id;
 

@@ -1,9 +1,9 @@
 //package dev.sheet_co.request_races;
 //
 //import com.fasterxml.jackson.databind.ObjectMapper;
-//import dev.sheet_co.request_races.mapper.RaceMapper;
-//import dev.sheet_co.request_races.model.dto.RaceCreateIn;
-//import dev.sheet_co.request_races.repository.RaceRepository;
+//import dev.sheet_co.request_races.mapper.RaceRequestMapper;
+//import dev.sheet_co.request_races.model.dto.RaceRequestCreateIn;
+//import dev.sheet_co.request_races.repository.RaceRequestRepository;
 //import dev.sheet_co.request_races.testutil.TestModelGenerator;
 //import jakarta.transaction.Transactional;
 //import org.junit.jupiter.api.AfterEach;
@@ -33,13 +33,13 @@
 //  private MockMvc mockMvc;
 //
 //  @Autowired
-//  private RaceRepository raceRepository;
+//  private RaceRequestRepository raceRepository;
 //
 //  @Autowired
-//  private RaceMapper raceMapper;
+//  private RaceRequestMapper raceMapper;
 //
 //  @Autowired
-//  private RaceCreateIn raceCreateRequest;
+//  private RaceRequestCreateIn raceCreateRequest;
 //
 //  @Autowired
 //  private TestModelGenerator modelGenerator;
