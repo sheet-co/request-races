@@ -75,6 +75,7 @@ sonar {
 		property("sonar.organization", "sheet-co")
 		property("sonar.host.url", "https://sonarcloud.io")
 	}
+
 }
 
 
