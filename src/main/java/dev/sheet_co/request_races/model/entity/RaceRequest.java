@@ -1,6 +1,5 @@
 package dev.sheet_co.request_races.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -17,6 +16,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(includeFieldNames = true, onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Table(name = "races_request")
 public class RaceRequest {
   @Id
@@ -26,11 +26,13 @@ public class RaceRequest {
   private Long id;
 
   @Column
+  @EqualsAndHashCode.Include
   @ToString.Include
   @NotNull
   private String name;
 
   @Column
+  @EqualsAndHashCode.Include
   @ToString.Include
   @NotNull
   private String color;
