@@ -37,10 +37,8 @@ public class RaceRequest {
 
   @CreationTimestamp
   @Column(nullable = false, updatable = false)
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
   private LocalDateTime createdAt;
 
   @UpdateTimestamp
-  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
   private LocalDateTime updatedAt;
 }
