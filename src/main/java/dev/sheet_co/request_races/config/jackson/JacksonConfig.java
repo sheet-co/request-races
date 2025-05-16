@@ -1,7 +1,7 @@
 package dev.sheet_co.request_races.config.jackson;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.openapitools.jackson.nullable.JsonNullableModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +17,8 @@ public class JacksonConfig {
     builder
         .serializationInclusion(JsonInclude.Include.NON_NULL)
         .modulesToInstall(new JsonNullableModule());
-    var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    builder.serializers(new LocalDateSerializer(formatter));
+    var dataTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    builder.serializers(new LocalDateTimeSerializer(dataTimeFormatter));
     return builder;
   }
 }
