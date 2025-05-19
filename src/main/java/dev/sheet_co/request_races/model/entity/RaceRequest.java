@@ -16,7 +16,7 @@ import static jakarta.persistence.GenerationType.IDENTITY;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString(includeFieldNames = true, onlyExplicitlyIncluded = true)
-@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@EqualsAndHashCode(onlyExplicitlyIncluded = true, cacheStrategy = EqualsAndHashCode.CacheStrategy.LAZY)
 @Table(name = "races_request")
 public class RaceRequest {
   @Id
