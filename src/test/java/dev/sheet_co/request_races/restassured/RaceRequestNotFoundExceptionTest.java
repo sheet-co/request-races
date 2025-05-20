@@ -28,7 +28,7 @@ class RaceRequestNotFoundExceptionTest {
             .get("api/race-request/{id}", raceId)
             .then()
             .statusCode(404)
-            .body("message", equalTo("RaceRequest not found"));
+            .body("title", equalTo("RaceRequestNotFoundException"));
   }
 
   @Test
@@ -48,7 +48,28 @@ class RaceRequestNotFoundExceptionTest {
             .put("api/race-request/{id}", raceId)
             .then()
             .statusCode(404)
-            .body("message", equalTo("RaceRequest not found"));
+            .body("title", equalTo("RaceRequestNotFoundException"));
+  }
+
+  @Test
+    //DELETE
+  void raceRequestNotFoundException_DELETE_Test() {
+
+    Long raceId = 1L;
+    String json = """
+         { 
+          "name": "Initial name",
+          "color":"Initial color"
+        }
+        """;
+    given() // PUT
+            .contentType(ContentType.JSON)
+            .body(json)
+            .when()
+            .delete("api/race-request/{id}", raceId)
+            .then()
+            .statusCode(404)
+            .body("title", equalTo("RaceRequestNotFoundException"));
   }
 
 }
