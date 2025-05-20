@@ -1,4 +1,4 @@
-package dev.sheet_co.request_races.security;
+package dev.sheet_co.request_races.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,8 +18,10 @@ public class SecurityConfig {
     http.csrf(AbstractHttpConfigurer::disable);
     http.authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
         .requestMatchers(HttpMethod.GET, "/api/hello").permitAll()
-//        .requestMatchers("/**").permitAll()
+        .requestMatchers(HttpMethod.POST, "/api").permitAll()
+        .requestMatchers("/api/race-request/**").permitAll()
         .anyRequest().authenticated());
     return http.build();
   }
+
 }
