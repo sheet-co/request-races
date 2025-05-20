@@ -1,5 +1,6 @@
 package dev.sheet_co.request_races.service;
 
+import dev.sheet_co.request_races.exception.NameAlreadyExistsException;
 import dev.sheet_co.request_races.exception.RaceRequestNotFoundException;
 import dev.sheet_co.request_races.mapper.RaceRequestMapper;
 import dev.sheet_co.request_races.model.dto.RaceRequestCreateIn;
@@ -38,9 +39,13 @@ public class RaceRequestService {
 
   public RaceRequestOut createRace(RaceRequestCreateIn request) {
     var race = raceRequestMapper.toEntity(request);
+    var searchName = raceRequestRepository.findRaceByName(race.getName());
+    if (searchName.isPresent()) {
+      throw new NameAlreadyExistsException("");
+    }
+
     var savedRace = raceRequestRepository.save(race);
     return raceRequestMapper.toResponse(savedRace);
-
   }
 
   public RaceRequestOut updateRace(Long id, RaceRequestUpdateIn request) {
