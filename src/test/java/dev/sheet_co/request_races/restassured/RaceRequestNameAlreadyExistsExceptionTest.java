@@ -22,6 +22,7 @@ class RaceRequestNameAlreadyExistsExceptionTest {
   @Test
   @DisplayName("#1 Repeat name")
   void raceRequestNameAlreadyExistsException_RepeatNamePOST_test() {
+
     var raceJson = """
         {  "name": "Tom",
           "color": "Red"
