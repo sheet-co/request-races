@@ -20,9 +20,9 @@ class RaceRequestNameAlreadyExistsExceptionTest {
   }
 
   @Test
-  @DisplayName("#1 Create name")
-  void raceRequestNameAlreadyExistsException_POST_test() {
-    var raceJson2 = """
+  @DisplayName("#1 Repeat name")
+  void raceRequestNameAlreadyExistsException_RepeatNamePOST_test() {
+    var raceJson = """
         {  "name": "Tom",
           "color": "Red"
         }
@@ -31,7 +31,7 @@ class RaceRequestNameAlreadyExistsExceptionTest {
         .log().all()
         .when()
         .contentType(ContentType.JSON)
-        .body(raceJson2)
+        .body(raceJson)
         .post("/api/race-request")
         .then()
         .assertThat().body("id", equalTo(1))
@@ -40,13 +40,8 @@ class RaceRequestNameAlreadyExistsExceptionTest {
         .assertThat().body("name", equalTo("Tom"))
         .assertThat().body("color", equalTo("Red"))
         .statusCode(201);
-  }
 
-
-  @Test
-  @DisplayName("#2 Repeat name")
-  void raceRequestNameAlreadyExistsException_RepeatNamePOST_test() {
-    var raceJson = """
+    var raceRepeatJson = """
         {  "name": "Tom",
           "color": "Red"
         }
@@ -56,7 +51,7 @@ class RaceRequestNameAlreadyExistsExceptionTest {
         .log().all()
         .when()
         .contentType(ContentType.JSON)
-        .body(raceJson)
+        .body(raceRepeatJson)
         .post("/api/race-request")
         .then()
         .statusCode(409)
