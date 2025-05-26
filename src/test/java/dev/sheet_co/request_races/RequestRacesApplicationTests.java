@@ -5,6 +5,6 @@ import org.junit.jupiter.api.Test;
 class RequestRacesApplicationTests {
     @Test
     void contextLoads() {
-        // checking context
+        // checking Spring context
     }
 }

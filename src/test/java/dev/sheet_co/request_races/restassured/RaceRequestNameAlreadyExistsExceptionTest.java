@@ -2,6 +2,7 @@ package dev.sheet_co.request_races.restassured;
 
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
+import io.restassured.response.ValidatableResponse;
 import org.junit.jupiter.api.*;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -20,38 +21,14 @@ class RaceRequestNameAlreadyExistsExceptionTest {
   }
 
   @Test
-  @DisplayName("#1 Create name")
-  void raceRequestNameAlreadyExistsException_POST_test() {
-    var raceJson2 = """
-        {  "name": "Tom",
-          "color": "Red"
-        }
-        """;
-    given()
-        .log().all()
-        .when()
-        .contentType(ContentType.JSON)
-        .body(raceJson2)
-        .post("/api/race-request")
-        .then()
-        .assertThat().body("id", equalTo(1))
-        .assertThat().body("name", isA(String.class))
-        .assertThat().body("color", isA(String.class))
-        .assertThat().body("name", equalTo("Tom"))
-        .assertThat().body("color", equalTo("Red"))
-        .statusCode(201);
-  }
-
-
-  @Test
-  @DisplayName("#2 Repeat name")
+  @DisplayName("#1 Repeat name")
   void raceRequestNameAlreadyExistsException_RepeatNamePOST_test() {
+
     var raceJson = """
         {  "name": "Tom",
           "color": "Red"
         }
         """;
-
     given()
         .log().all()
         .when()
@@ -59,9 +36,29 @@ class RaceRequestNameAlreadyExistsExceptionTest {
         .body(raceJson)
         .post("/api/race-request")
         .then()
+        .assertThat().body("name", isA(String.class))
+        .assertThat().body("color", isA(String.class))
+        .assertThat().body("name", equalTo("Tom"))
+        .assertThat().body("color", equalTo("Red"))
+        .statusCode(201);
+
+    var raceRepeatJson = """
+        {  "name": "Tom",
+          "color": "Red"
+        }
+        """;
+
+    ValidatableResponse validatableResponse = given()
+        .log().all()
+        .when()
+        .contentType(ContentType.JSON)
+        .body(raceRepeatJson)
+        .post("/api/race-request")
+        .then()
         .statusCode(409)
         .body("title", equalTo("NameAlreadyExistsException"));
 
+    validatableResponse.log().all();
   }
 
 }
