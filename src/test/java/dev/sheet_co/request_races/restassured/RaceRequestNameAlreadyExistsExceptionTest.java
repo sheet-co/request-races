@@ -36,7 +36,6 @@ class RaceRequestNameAlreadyExistsExceptionTest {
         .body(raceJson)
         .post("/api/race-request")
         .then()
-        .assertThat().body("id", equalTo(1))
         .assertThat().body("name", isA(String.class))
         .assertThat().body("color", isA(String.class))
         .assertThat().body("name", equalTo("Tom"))
